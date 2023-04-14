@@ -4,10 +4,11 @@
  *  Created on: Mar 22, 2023
  *      Author: Ryu
  */
+#include <main.h>
 #include "spi.h"
 #include "usart.h"
-#include "main.h"
 #include "spi_com.h"
+#include "stdio.h"
 
 uint8_t WhoAmI=0x75;
 ICM_DATA icm_data;

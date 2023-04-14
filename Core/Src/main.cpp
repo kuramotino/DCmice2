@@ -31,6 +31,9 @@
 #include "spi_com.h"
 #include "motor_drive.h"
 #include "PL_sensor.h"
+#include "intermod.h"
+#include "encoder.h"
+#include "stdio.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -133,16 +136,16 @@ int main(void)
 	  printf("hello=%s\n\r", hello);
 	  printf("M_PI=%f\n\r",PI);*/
 
-	  /*float batf;
+	  float batf;
 	  uint16_t bat;
 	  //HAL_ADCEx_Calibration_Start(&hadc2, ADC_SINGLE_ENDED);
 	  HAL_ADC_Start(&hadc2);
 	  HAL_ADC_PollForConversion(&hadc2, 100);
 	  bat = HAL_ADC_GetValue(&hadc2);
 	  HAL_ADC_Stop(&hadc2);
-	  batf = (float) bat / 4095.0 * (100.0 + 50.0) / 50.0;
+	  batf = (float) bat / 1024.0 * (100.0 + 50.0) / 50.0/1.22;
 	  //batf=(float)bat;
-	  printf("BATT=%f\n\r",batf);*/
+	  printf("BATT=%f\n\r",batf);
 
 	  /*HAL_Delay(300);
 	  HAL_GPIO_WritePin(ILED5_GPIO_Port,ILED5_Pin,GPIO_PIN_RESET);
@@ -160,6 +163,7 @@ int main(void)
 	  //Update_ICM();
 	  //Show_ICM();
 	  HAL_Delay(100);
+	  //cpploop();
 	  //R_L_test_drive();
 	  //test_sound();
 	  //cnt_R+=pl_count_encoderR();
@@ -183,8 +187,8 @@ int main(void)
 		  //HAL_GPIO_WritePin(LED5_GPIO_Port,LED5_Pin,GPIO_PIN_SET);
 		  //HAL_GPIO_WritePin(ILED8_GPIO_Port,ILED8_Pin,GPIO_PIN_SET);
 		  //HAL_GPIO_WritePin(ILED9_GPIO_Port,ILED9_Pin,GPIO_PIN_SET);
-		  //HAL_GPIO_WritePin(ILED10_GPIO_Port,ILED10_Pin,GPIO_PIN_SET);
-		  test_sound();
+		  HAL_GPIO_WritePin(ILED10_GPIO_Port,ILED10_Pin,GPIO_PIN_SET);
+		  //test_sound();
 		  R_L_test_drive();
 		  //test_suction();
 	  }

@@ -4,8 +4,8 @@
  *  Created on: Mar 27, 2023
  *      Author: Ryu
  */
+#include <main.h>
 #include "encoder.h"
-#include "main.h"
 #include "tim.h"
 #include "stm32f4xx_hal.h"
 

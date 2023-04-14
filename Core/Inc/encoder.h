@@ -12,7 +12,7 @@
 
 void pl_encoder_init();
 
-int16_t pl_count_encoderR1(void);
+int16_t pl_count_encoderR(void);
 int16_t pl_count_encoderL(void);
 
 #endif /* INC_ENCODER_H_ */

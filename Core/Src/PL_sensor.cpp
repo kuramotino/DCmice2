@@ -4,7 +4,7 @@
  *  Created on: Apr 4, 2023
  *      Author: Ryu
  */
-#include "main.h"
+#include <main.h>
 #include "adc.h"
 #include "stdio.h"
 #include "PL_sensor.h"
@@ -98,7 +98,7 @@ void pl_callback_getSensor(void) {
 	AD_step++;
 
 	if(AD_step!= 5) {
-		HAL_ADC_Start_DMA(&hadc1, g_ADCBuffer,sizeof(g_ADCBuffer) / sizeof(uint16_t));
+		HAL_ADC_Start_DMA(&hadc1, (uint32_t *)g_ADCBuffer,sizeof(g_ADCBuffer) / sizeof(uint16_t));
 	} else{
 		AD_step= 0;
 	}
@@ -108,7 +108,7 @@ void pl_callback_getSensor(void) {
 /*センサーの情報を取得する割り込み関数．*//*******************************************************************/
 void pl_interupt_getSensor(void){
 	//HAL_GPIO_WritePin(ILED8_GPIO_Port,ILED8_Pin,GPIO_PIN_SET);
-	    HAL_ADC_Start_DMA(&hadc1, g_ADCBuffer,sizeof(g_ADCBuffer) / sizeof(uint16_t));
+	    HAL_ADC_Start_DMA(&hadc1, (uint32_t *)g_ADCBuffer,sizeof(g_ADCBuffer) / sizeof(uint16_t));
 	    g_sensor_now[0]=g_sensor_on[0]-g_sensor_off[0];
 		g_sensor_now[1]=g_sensor_on[1]-g_sensor_off[1];
 		g_sensor_now[2]=g_sensor_on[2]-g_sensor_off[2];

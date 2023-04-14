@@ -4,8 +4,8 @@
  *  Created on: Mar 26, 2023
  *      Author: Ryu
  */
+#include <main.h>
 #include "motor_drive.h"
-#include "main.h"
 #include "tim.h"
 
 
@@ -69,7 +69,7 @@ void R_L_test_drive(void)
 		    HAL_TIM_PWM_Start(&htim12, TIM_CHANNEL_2);
 		    HAL_Delay(100);
 
-		    int duty = (int)(160);  //50%
+		    int duty = (int)(300);  //50%
 		    /* setting do pwm*/
 		    __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_3, duty);
 		    __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_4, duty);
