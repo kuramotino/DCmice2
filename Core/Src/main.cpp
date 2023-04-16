@@ -34,6 +34,7 @@
 #include "intermod.h"
 #include "encoder.h"
 #include "stdio.h"
+#include "Init_Controll_Objs.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -111,7 +112,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
   uint8_t reg;
   float gyro;
-  gyro_init();
+  //gyro_init();
   HAL_TIM_Base_Start_IT(&htim6);
   HAL_TIM_Base_Start_IT(&htim2);
   HAL_TIM_PWM_MspInit(&htim2);
@@ -119,9 +120,10 @@ int main(void)
   HAL_TIM_PWM_MspInit(&htim3);
   HAL_TIM_Base_Start_IT(&htim12);
   HAL_TIM_PWM_MspInit(&htim12);
-  pl_encoder_init();
+  //pl_encoder_init();
   int16_t cnt_R=0;
   int16_t cnt_L=0;
+  Init_Controll();
   /* USER CODE END 2 */
 
   /* Infinite loop */

@@ -10,13 +10,14 @@
 
 namespace controll
 {
+	enum status {Run,Normal_End,Forced_End,Abnormal_End};
 	class CommandStatus
 	{
-		int command_status;
+		enum status command_status;
 	public:
-		void off_command(int cs);
-		void on_command(int cs);
-		int show_status();
+		void off_command(enum status cs);//Statusをオフにする
+		void on_command(enum status cs);//Statusをオンにする
+		enum status show_status();//現在のStatusを返す
 	};
 }
 

@@ -20,18 +20,15 @@ namespace controll
 
 	void controll::kasoku::set_kasoku()//台形加速をスタートさせる関数
 	{
-		if(isKasokuEnd==true)
-		{
-			isKasokuEnd=false;
-			now_x=0;
-			now_v=0;
-			target_a=now_cm.bu_tar_a;//加速度
-			target_v_start=now_cm.bu_tar_v_start;//初速度
-			target_v_max=now_cm.bu_tar_v_max;//最大速度
-			target_v_end=now_cm.bu_tar_v_end;//終端速度
-			target_x=now_cm.bu_tar_x;//目標距離
-			xde=(target_v_max*target_v_max-target_v_end*target_v_end)/(2*target_a);//減速距離の計算
-		}
+		isKasokuEnd=false;
+		now_x=0;
+		now_v=0;
+		target_a=now_cm.bu_tar_a;//加速度
+		target_v_start=now_cm.bu_tar_v_start;//初速度
+		target_v_max=now_cm.bu_tar_v_max;//最大速度
+		target_v_end=now_cm.bu_tar_v_end;//終端速度
+		target_x=now_cm.bu_tar_x;//目標距離
+		xde=(target_v_max*target_v_max-target_v_end*target_v_end)/(2*target_a);//減速距離の計算
 	}
 
 	void controll::kasoku::daikei()//台形加速を行う
@@ -68,11 +65,15 @@ namespace controll
 	{
 		now_cm=cm;
 		isKasokuEnd=now_cm.isStop;
+		if(isKasokuEnd==false)
+		{
+			set_kasoku();
+		}
 	}
 
 	void controll::kasoku::transmit_pwm()//pwm_outに計算した速度と位置をと加速が終了したかどうかのフラグを送る関数
 	{
-		my_pwm.updata_x_v(now_x, now_v,isKasokuEnd);
+			my_pwm.updata_x_v(now_x, now_v,isKasokuEnd);
 	}
 
 	float controll::kasoku::show_v()//now_vを返す関数(PID_Ctrlに呼ばれる)

@@ -10,6 +10,7 @@
 
 namespace controll
 {
+	enum command_type{Stra,Left_sla,Right_sla,Left_sen,Right_sen,Stra_Back,Stop,Fail_Stop};
 	class Command
 	{
 	public:
@@ -20,7 +21,14 @@ namespace controll
 		float bu_tar_x;//目標距離
 		float gv;//重心速度
 		bool isStop;//stopさせるかどうか
+		bool isFailStop;//FailSafeでstopさせるか
+		bool isPID_Stop;//PIDをstopさせるか
 		bool isTurn;//turnかどうか
+
+	public:
+		Command();
+		Command(enum command_type type);//Commandのコンストラクタ*/
+
 	};
 }
 

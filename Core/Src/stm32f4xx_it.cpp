@@ -24,6 +24,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "PL_sensor.h"
+#include "Init_Controll_Objs.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -65,6 +66,7 @@ extern TIM_HandleTypeDef htim7;
 extern TIM_HandleTypeDef htim8;
 extern TIM_HandleTypeDef htim12;
 /* USER CODE BEGIN EV */
+
 
 /* USER CODE END EV */
 
@@ -216,7 +218,7 @@ void TIM3_IRQHandler(void)
   /* USER CODE END TIM3_IRQn 0 */
   HAL_TIM_IRQHandler(&htim3);
   /* USER CODE BEGIN TIM3_IRQn 1 */
-
+  Sync_Mo_R();
   /* USER CODE END TIM3_IRQn 1 */
 }
 
@@ -231,7 +233,7 @@ void TIM8_BRK_TIM12_IRQHandler(void)
   HAL_TIM_IRQHandler(&htim8);
   HAL_TIM_IRQHandler(&htim12);
   /* USER CODE BEGIN TIM8_BRK_TIM12_IRQn 1 */
-
+  Sync_Mo_L();
   /* USER CODE END TIM8_BRK_TIM12_IRQn 1 */
 }
 
@@ -245,6 +247,7 @@ void TIM6_DAC_IRQHandler(void)
   /* USER CODE END TIM6_DAC_IRQn 0 */
   HAL_TIM_IRQHandler(&htim6);
   /* USER CODE BEGIN TIM6_DAC_IRQn 1 */
+  Sync_Module();
   pl_interupt_getSensor();
   //test_adc();
   /* USER CODE END TIM6_DAC_IRQn 1 */

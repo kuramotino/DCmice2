@@ -7,6 +7,7 @@
 
 #ifndef INC_PL_SENSOR_H_
 #define INC_PL_SENSOR_H_
+#include "stm32f4xx_hal.h"
 
 extern uint16_t g_sensor_on[5];
 extern uint16_t g_sensor_off[5];

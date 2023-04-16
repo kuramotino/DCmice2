@@ -53,5 +53,15 @@ namespace controll
 			transmit_PID();
 		}
 	}
+
+	void controll::PID_Ctrl::updata(Command cm)//overrideする
+	{
+		now_cm=cm;
+		isStop=(now_cm.isPID_Stop && now_cm.isStop);
+		enc_old_error=0;
+		enc_sigma_error=0;
+		gy_old_error=0;
+		gy_sigma_error=0;
+	}
 }
 

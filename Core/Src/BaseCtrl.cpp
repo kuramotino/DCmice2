@@ -29,6 +29,6 @@ namespace controll
 
 	void controll::BaseCtrl::status_off()//CommandStatusをoffにする
 	{
-		my_cs.off_command(-1);//-1:強制終了
+		my_cs.off_command(Forced_End);//-1:強制終了
 	}
 }

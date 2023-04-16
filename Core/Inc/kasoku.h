@@ -30,12 +30,11 @@ namespace controll
 		PWM_Out my_pwm;//pwmのオブジェクト
 
 
-
-		kasoku();
-		void set_kasoku();
-		void daikei();
-		void add_pwm(PWM_Out &pwm);//pwm_outオブジェクトを登録する
 	public:
+		kasoku();//kasokuクラスのコンストラクタ
+		void set_kasoku();//台形加速に必要なパラメータを設定する関数
+		void daikei();//台形加速を行う関数
+		void add_pwm(PWM_Out &pwm);//pwm_outオブジェクトを登録する
 		void updata(Command cm);//コマンドを更新する(CommandExecuterに呼ばれる)
 		void transmit_pwm();//pwm_outに計算した速度と位置とフラグを送る関数
 		float show_v();//now_vを返す関数(PID_Ctrlに呼ばれる)

@@ -30,16 +30,18 @@ namespace controll
 		float gy_delta_error;//前回と今回のerrorの差分
 
 		float V_bat=8.4;//8.4V:電源電圧
-		float Ksp;//直進のPゲイン
-		float Ksi;//直進のIゲイン
-		float Ksd;//直進のDゲイン
-		float Ktp;//回転のPゲイン
-		float Kti;//回転のIゲイン
-		float Ktd;//回転のDゲイン
+		float Ksp=5.0;//1直進のPゲイン
+		float Ksi=0.0;//1直進のIゲイン
+		float Ksd=0.0;//1直進のDゲイン
+		float Ktp=20.0;//2回転のPゲイン
+		float Kti=0.2;//2回転のIゲイン
+		float Ktd=0.0;//2回転のDゲイン
 
+	public:
 		void transmit_PID();//pwmに求めたpid値を送る関数
 		void get_enc_gyro();//kasokuとinputdataから速度、角速度、計算した速度を取得する
 		void PID();//PID値を計算する
+		void updata(Command cm);//overrideする
 	};
 }
 

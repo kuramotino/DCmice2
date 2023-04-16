@@ -28,7 +28,7 @@ namespace controll
 		bool isStop=true;//現在動作がstopしているかどうか
 
 	public:
-		void updata(Command cm);
+		virtual void updata(Command cm);
 		void add_obj(kasoku &ka,PWM_Out &pwm,InputData &input,CommandStatus &cs);
 		void status_off();
 	};

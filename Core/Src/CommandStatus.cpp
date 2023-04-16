@@ -8,23 +8,23 @@
 
 namespace controll
 {
-	void controll::CommandStatus::off_command(int cs)
+	void controll::CommandStatus::off_command(enum status cs)
 	{
-		if(cs<=0)
+		if(cs!=Run)
 		{
 			command_status=cs;
 		}
 	}
 
-	void controll::CommandStatus::on_command(int cs)
+	void controll::CommandStatus::on_command(enum status cs)
 	{
-		if(cs>0)
+		if(cs==Run)
 		{
 			command_status=cs;
 		}
 	}
 
-	int controll::CommandStatus::show_status()
+	enum status controll::CommandStatus::show_status()
 	{
 		return command_status;
 	}
