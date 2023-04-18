@@ -19,17 +19,17 @@ namespace controll
 	{
 	protected:
 		Command now_cm;
-		kasoku my_kasoku;
-		PWM_Out my_pwm;
-		InputData my_input;
-		CommandStatus my_cs;
+		kasoku* my_kasoku;
+		PWM_Out* my_pwm;
+		InputData* my_input;
+		CommandStatus* my_cs;
 
 	protected:
 		bool isStop=true;//現在動作がstopしているかどうか
 
 	public:
 		virtual void updata(Command cm);
-		void add_obj(kasoku &ka,PWM_Out &pwm,InputData &input,CommandStatus &cs);
+		void add_obj(kasoku* ka,PWM_Out* pwm,InputData* input,CommandStatus* cs);
 		void status_off();
 	};
 }

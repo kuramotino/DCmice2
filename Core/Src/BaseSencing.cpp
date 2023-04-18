@@ -9,7 +9,7 @@
 
 namespace module
 {
-	void module::BaseSencing::add_input(controll::InputData &input)//InputDataObjをセットする関数
+	void module::BaseSencing::add_input(controll::InputData* input)//InputDataObjをセットする関数
 	{
 		my_input=input;
 	}

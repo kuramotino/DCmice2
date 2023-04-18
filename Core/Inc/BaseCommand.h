@@ -14,16 +14,16 @@ namespace controll
 	class Command
 	{
 	public:
-		float bu_tar_a;//目標加速度
-		float bu_tar_v_start;//目標初速度
-		float bu_tar_v_max;//目標最高速度
-		float bu_tar_v_end;//目標終端速度
-		float bu_tar_x;//目標距離
-		float gv;//重心速度
-		bool isStop;//stopさせるかどうか
-		bool isFailStop;//FailSafeでstopさせるか
-		bool isPID_Stop;//PIDをstopさせるか
-		bool isTurn;//turnかどうか
+		float bu_tar_a=1000;//目標加速度
+		float bu_tar_v_start=0;//目標初速度
+		float bu_tar_v_max=500;//目標最高速度
+		float bu_tar_v_end=0;//目標終端速度
+		float bu_tar_x=500;//目標距離
+		float gv=500;//重心速度
+		bool isStop=false;//stopさせるかどうか
+		bool isFailStop=false;//FailSafeでstopさせるか
+		bool isPID_Stop=false;//PIDをstopさせるか
+		bool isTurn=false;//turnかどうか
 
 	public:
 		Command();

@@ -15,24 +15,28 @@ controll::InputData input_obj;
 module::Enc enc_obj;
 module::Gyro gyro_obj;
 controll::PID_Ctrl pid_obj;
+bool init_flag=false;
 using namespace controll;
 
 void Init_Controll()//controll,module名前空間のオブジェクトたちを初期化する
 {
-	cx_obj.addCtrl(pid_obj);
-	cx_obj.add_kasoku_PWM(ksk_obj, pwm_obj);
-	cx_obj.set_cs(cs_obj);
-	ksk_obj.add_pwm(pwm_obj);
-	pwm_obj.set_cs(cs_obj);
-	enc_obj.add_input(input_obj);
+	cx_obj.addCtrl(&pid_obj);
+	cx_obj.add_kasoku_PWM(&ksk_obj, &pwm_obj);
+	cx_obj.set_cs(&cs_obj);
+	ksk_obj.add_pwm(&pwm_obj);
+	pwm_obj.set_cs(&cs_obj);
+	enc_obj.add_input(&input_obj);
 	enc_obj.pl_encoder_init();
-	gyro_obj.add_input(input_obj);
+	gyro_obj.add_input(&input_obj);
 	gyro_obj.gyro_init();
-	pid_obj.add_obj(ksk_obj, pwm_obj, input_obj, cs_obj);
+	pid_obj.add_obj(&ksk_obj, &pwm_obj, &input_obj, &cs_obj);
+	init_flag=true;
 }
 
 void Sync_Module()//TIM6の割り込み処理
 {
+	if(init_flag==true)
+	{
 	cx_obj.polling_cs();
 	enc_obj.sensor_input();
 	gyro_obj.sensor_input();
@@ -40,6 +44,7 @@ void Sync_Module()//TIM6の割り込み処理
 	ksk_obj.transmit_pwm();//isKasokuEnd==trueならCommandStatusをオフにする
 	pid_obj.PID();
 	pwm_obj.pwm();
+	}
 }
 
 void Sync_Mo_R()//右モータの割り込み処理

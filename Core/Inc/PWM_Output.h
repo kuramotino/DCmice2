@@ -16,9 +16,9 @@ namespace controll
 	class PWM_Out
 	{
 		Command now_cm;//現在のコマンド
-		CommandStatus my_cs;
+		CommandStatus* my_cs;
 
-		bool isDutyEnd;//Duty変換が終わったかどうか
+		bool isDutyEnd=true;//Duty変換が終わったかどうか
 
 		float now_x;//現在位置
 		float now_v;//現在速度 mm/s
@@ -41,10 +41,15 @@ namespace controll
 		float L=50;//50mm:トレッド幅
 		float I=0.000543;//0.000543kg*m^2:慣性モーメント*/
 
+	public:
+		float now_R_log[1200];
+		float now_L_log[1200];
+		int log_count=0;
+
 
 	public:
 		PWM_Out(void);//pwmのコンストラクタ
-		void set_cs(CommandStatus &cs);//CommandStatusオブジェクトをフィールドにセットする
+		void set_cs(CommandStatus* cs);//CommandStatusオブジェクトをフィールドにセットする
 		void updata(Command cm);//現在のコマンドを更新(CommandExecuterに呼ばれる)
 		void updata_x_v(float x,float v,bool isKasokuEnd);//kasokuから現在のxとvとフラグを取得
 		void updata_PID(float ff_turn,float fb_turn);//PIDから現在のPID値を取得

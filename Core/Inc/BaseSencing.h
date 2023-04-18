@@ -14,10 +14,10 @@ namespace module
 	class BaseSencing
 	{
 	protected:
-		controll::InputData my_input;
+		controll::InputData* my_input;
 
 	public:
-		void add_input(controll::InputData &input);
+		void add_input(controll::InputData* input);
 		virtual void sensor_input();
 	};
 }

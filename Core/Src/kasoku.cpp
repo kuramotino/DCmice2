@@ -53,10 +53,17 @@ namespace controll
 			{
 				isKasokuEnd=true;
 			}
+
+		if(log_count!=1200 && now_cm.gv!=0)
+			{
+				now_v_log[log_count]=now_v;
+				now_x_log[log_count]=now_x;
+				log_count++;
+			}
 		}
 	}
 
-	void controll::kasoku::add_pwm(PWM_Out &pwm)//pwm_outオブジェクトを登録する
+	void controll::kasoku::add_pwm(PWM_Out* pwm)//pwm_outオブジェクトを登録する
 	{
 		my_pwm=pwm;
 	}
@@ -73,7 +80,7 @@ namespace controll
 
 	void controll::kasoku::transmit_pwm()//pwm_outに計算した速度と位置をと加速が終了したかどうかのフラグを送る関数
 	{
-			my_pwm.updata_x_v(now_x, now_v,isKasokuEnd);
+			my_pwm->updata_x_v(now_x, now_v,isKasokuEnd);
 	}
 
 	float controll::kasoku::show_v()//now_vを返す関数(PID_Ctrlに呼ばれる)

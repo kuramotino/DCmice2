@@ -26,6 +26,7 @@ extern controll::InputData input_obj;
 extern module::Enc enc_obj;
 extern module::Gyro gyro_obj;
 extern controll::PID_Ctrl pid_obj;
+extern bool init_flag;
 
 void Init_Controll();
 void Sync_Module();

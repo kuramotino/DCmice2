@@ -19,7 +19,7 @@ namespace controll
 		isStop=now_cm.isStop;
 	}
 
-	void controll::BaseCtrl::add_obj(kasoku &ka,PWM_Out &pwm,InputData &input,CommandStatus &cs)
+	void controll::BaseCtrl::add_obj(kasoku* ka,PWM_Out* pwm,InputData* input,CommandStatus* cs)
 	{
 		my_kasoku=ka;
 		my_pwm=pwm;
@@ -29,6 +29,6 @@ namespace controll
 
 	void controll::BaseCtrl::status_off()//CommandStatusをoffにする
 	{
-		my_cs.off_command(Forced_End);//-1:強制終了
+		my_cs->off_command(Forced_End);//-1:強制終了
 	}
 }

@@ -84,7 +84,7 @@ namespace module
 	void module::Gyro::sensor_input()//機体の速度を計算してInputDataに入力する
 	{
 		Update_ICM();
-		my_input.omega_gyro=gyro_z;
+		my_input->omega_gyro=gyro_z;
 	}
 }
 

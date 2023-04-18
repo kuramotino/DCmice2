@@ -8,6 +8,7 @@
 #include "BaseCommand.h"
 #include "CommandStatus.h"
 #include "math.h"
+#include "gpio.h"
 
 namespace controll
 {
@@ -16,7 +17,7 @@ namespace controll
 		isDutyEnd=true;
 	}
 
-	void controll::PWM_Out::set_cs(CommandStatus &cs)
+	void controll::PWM_Out::set_cs(CommandStatus* cs)
 	{
 		my_cs=cs;
 	}
@@ -27,6 +28,8 @@ namespace controll
 		isDutyEnd=now_cm.isStop;
 		duty_FF_stra=0;
 		duty_FF_turn=0;
+		duty_FB_stra=0;
+		duty_FB_turn=0;
 		if(isDutyEnd==false)
 		{
 			set_pwm();
@@ -37,10 +40,12 @@ namespace controll
 	{
 		now_x=x;
 		now_v=v;
-		isDutyEnd=isKasokuEnd;
-		if(isDutyEnd==true)
+		bool bu_isKasokuEnd=isKasokuEnd;
+		if(bu_isKasokuEnd==true && isDutyEnd==false)
 		{
 			status_off();
+			HAL_GPIO_WritePin(ILED2_GPIO_Port,ILED2_Pin,GPIO_PIN_SET);
+			isDutyEnd=isKasokuEnd;
 		}
 	}
 
@@ -52,7 +57,7 @@ namespace controll
 
 	void controll::PWM_Out::set_pwm()//duty変換を開始する関数
 	{
-			target_a=now_cm.bu_tar_a;
+		target_a=now_cm.bu_tar_a;
 	}
 
 	void controll::PWM_Out::pwm()//duty変換を行う関数
@@ -92,9 +97,16 @@ namespace controll
 			{
 				duty_R=1;
 			}
-			else if(duty_L>1)
+			if(duty_L>1)
 			{
 				duty_L=1;
+			}
+
+			if(log_count!=1200)
+			{
+				now_R_log[log_count]=duty_R;
+				now_L_log[log_count]=duty_L;
+				log_count++;
 			}
 		}
 	}
@@ -104,10 +116,16 @@ namespace controll
 		*dutyR=duty_R;
 		*dutyL=duty_L;
 		*bu_cw=cw;
+		if(isDutyEnd==true)
+		{
+			*dutyR=0;
+			*dutyL=0;
+			*bu_cw=cw;
+		}
 	}
 
 	void controll::PWM_Out::status_off()
 	{
-		my_cs.off_command(Normal_End);//1:通常終了
+		my_cs->off_command(Normal_End);//1:通常終了
 	}
 }

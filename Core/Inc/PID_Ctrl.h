@@ -30,12 +30,17 @@ namespace controll
 		float gy_delta_error;//前回と今回のerrorの差分
 
 		float V_bat=8.4;//8.4V:電源電圧
-		float Ksp=5.0;//1直進のPゲイン
-		float Ksi=0.0;//1直進のIゲイン
+		float Ksp=0.015;//1直進のPゲイン
+		float Ksi=0.001;//1直進のIゲイン
 		float Ksd=0.0;//1直進のDゲイン
-		float Ktp=20.0;//2回転のPゲイン
-		float Kti=0.2;//2回転のIゲイン
+		float Ktp=0.0;//2回転のPゲイン
+		float Kti=0.0;//2回転のIゲイン
 		float Ktd=0.0;//2回転のDゲイン
+
+	public:
+		float log_enc[1200];
+		float log_gyro[1200];
+		int log_count=0;
 
 	public:
 		void transmit_PID();//pwmに求めたpid値を送る関数

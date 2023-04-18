@@ -57,15 +57,15 @@ namespace module
 		enc_count_l=pl_count_encoderL();
 		sum_enc_r+=enc_count_r;
 		sum_enc_l+=enc_count_l;
-		enc_v_R=(float)(enc_count_r/4095*2*3.14*11.5);//2*PI*TaiyaDirmeterをかける
-		enc_v_L=(float)(enc_count_l/4095*2*3.14*11.5);//2*PI*TaiayDirmeterをかける
-		v_encoder=(enc_v_R+enc_v_L)/2;//1重心の速度を求める
+		enc_v_R=((float)enc_count_r/4095.0f)*2*3.14*11.5/0.001/6;//2*PI*TaiyaDirmeterをかける
+		enc_v_L=((float)enc_count_l/4095.0f)*2*3.14*11.5/0.001/6;//2*PI*TaiayDirmeterをかける
+		v_encoder=(enc_v_R-enc_v_L)/2;//1重心の速度を求める
 
-		my_input.v_encoder=v_encoder;
-		my_input.enc_v_L=enc_v_L;
-		my_input.enc_v_R=enc_v_R;
-		my_input.enc_v_L_sum=sum_enc_l;
-		my_input.enc_v_R_sum=sum_enc_r;
+		my_input->v_encoder=v_encoder;
+		my_input->enc_v_L=enc_v_L;
+		my_input->enc_v_R=enc_v_R;
+		my_input->enc_v_L_sum=sum_enc_l;
+		my_input->enc_v_R_sum=sum_enc_r;
 	}
 }
 

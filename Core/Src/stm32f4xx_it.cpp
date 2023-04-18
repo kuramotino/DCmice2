@@ -25,6 +25,7 @@
 /* USER CODE BEGIN Includes */
 #include "PL_sensor.h"
 #include "Init_Controll_Objs.h"
+#include "gpio.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -219,6 +220,7 @@ void TIM3_IRQHandler(void)
   HAL_TIM_IRQHandler(&htim3);
   /* USER CODE BEGIN TIM3_IRQn 1 */
   Sync_Mo_R();
+  //HAL_GPIO_WritePin(ILED1_GPIO_Port,ILED1_Pin,GPIO_PIN_SET);
   /* USER CODE END TIM3_IRQn 1 */
 }
 
@@ -234,6 +236,7 @@ void TIM8_BRK_TIM12_IRQHandler(void)
   HAL_TIM_IRQHandler(&htim12);
   /* USER CODE BEGIN TIM8_BRK_TIM12_IRQn 1 */
   Sync_Mo_L();
+  //HAL_GPIO_WritePin(ILED2_GPIO_Port,ILED2_Pin,GPIO_PIN_SET);
   /* USER CODE END TIM8_BRK_TIM12_IRQn 1 */
 }
 
@@ -249,6 +252,7 @@ void TIM6_DAC_IRQHandler(void)
   /* USER CODE BEGIN TIM6_DAC_IRQn 1 */
   Sync_Module();
   pl_interupt_getSensor();
+  //HAL_GPIO_WritePin(ILED5_GPIO_Port,ILED5_Pin,GPIO_PIN_SET);
   //test_adc();
   /* USER CODE END TIM6_DAC_IRQn 1 */
 }

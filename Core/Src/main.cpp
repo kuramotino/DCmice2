@@ -35,6 +35,8 @@
 #include "encoder.h"
 #include "stdio.h"
 #include "Init_Controll_Objs.h"
+#include "Act_Pat.h"
+//#include "kasoku.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -120,10 +122,22 @@ int main(void)
   HAL_TIM_PWM_MspInit(&htim3);
   HAL_TIM_Base_Start_IT(&htim12);
   HAL_TIM_PWM_MspInit(&htim12);
+
+  __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_3, 0);
+  __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_4, 0);
+  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_3);
+  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_4);
+  __HAL_TIM_SET_COMPARE(&htim12, TIM_CHANNEL_1, 0);
+  __HAL_TIM_SET_COMPARE(&htim12, TIM_CHANNEL_2, 0);
+  HAL_TIM_PWM_Start(&htim12, TIM_CHANNEL_1);
+  HAL_TIM_PWM_Start(&htim12, TIM_CHANNEL_2);
   //pl_encoder_init();
   int16_t cnt_R=0;
   int16_t cnt_L=0;
   Init_Controll();
+  bool isStart=false;
+  using namespace controll;
+  using namespace application;
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -138,7 +152,7 @@ int main(void)
 	  printf("hello=%s\n\r", hello);
 	  printf("M_PI=%f\n\r",PI);*/
 
-	  float batf;
+	  /*float batf;
 	  uint16_t bat;
 	  //HAL_ADCEx_Calibration_Start(&hadc2, ADC_SINGLE_ENDED);
 	  HAL_ADC_Start(&hadc2);
@@ -147,7 +161,7 @@ int main(void)
 	  HAL_ADC_Stop(&hadc2);
 	  batf = (float) bat / 1024.0 * (100.0 + 50.0) / 50.0/1.22;
 	  //batf=(float)bat;
-	  printf("BATT=%f\n\r",batf);
+	  printf("BATT=%f\n\r",batf);*/
 
 	  /*HAL_Delay(300);
 	  HAL_GPIO_WritePin(ILED5_GPIO_Port,ILED5_Pin,GPIO_PIN_RESET);
@@ -174,12 +188,22 @@ int main(void)
 	  //HAL_GPIO_WritePin(ILED8_GPIO_Port,ILED8_Pin,GPIO_PIN_SET);
 	  //HAL_ADCEx_Calibration_Start(&hadc1, ADC_SINGLE_ENDED);
 	  //test_adc();
-	  printf("sensorL_1=%d,sensorL_2=%d,sensorF=%d,sensorR_1=%d,sensorR_2=%d\n\r",g_sensor_now[0],g_sensor_now[1],g_sensor_now[2],g_sensor_now[3],g_sensor_now[4]);
+	  //printf("sensorL_1=%d,sensorL_2=%d,sensorF=%d,sensorR_1=%d,sensorR_2=%d\n\r",g_sensor_now[0],g_sensor_now[1],g_sensor_now[2],g_sensor_now[3],g_sensor_now[4]);
 	 //HAL_GPIO_WritePin(LED1_GPIO_Port,LED1_Pin,GPIO_PIN_SET);
 	  		  //HAL_GPIO_WritePin(LED2_GPIO_Port,LED2_Pin,GPIO_PIN_SET);
 	  		  //HAL_GPIO_WritePin(LED3_GPIO_Port,LED3_Pin,GPIO_PIN_SET);
 	  		  //HAL_GPIO_WritePin(LED4_GPIO_Port,LED4_Pin,GPIO_PIN_SET);
 	  		  //HAL_GPIO_WritePin(LED5_GPIO_Port,LED5_Pin,GPIO_PIN_SET);
+	  if(isStart==true)
+	  {
+		  isStart=false;
+		  HAL_GPIO_WritePin(ILED10_GPIO_Port,ILED10_Pin,GPIO_PIN_SET);
+		  App_Set_Command(Stra);
+		  HAL_Delay(100);
+		  //App_Set_Command(Stra);
+	  }
+	  //HAL_GPIO_WritePin(ILED10_GPIO_Port,ILED10_Pin,GPIO_PIN_SET);
+
 	  if(PressButton()==1)
 	  {
 		  //HAL_GPIO_WritePin(LED1_GPIO_Port,LED1_Pin,GPIO_PIN_SET);
@@ -189,10 +213,25 @@ int main(void)
 		  //HAL_GPIO_WritePin(LED5_GPIO_Port,LED5_Pin,GPIO_PIN_SET);
 		  //HAL_GPIO_WritePin(ILED8_GPIO_Port,ILED8_Pin,GPIO_PIN_SET);
 		  //HAL_GPIO_WritePin(ILED9_GPIO_Port,ILED9_Pin,GPIO_PIN_SET);
-		  HAL_GPIO_WritePin(ILED10_GPIO_Port,ILED10_Pin,GPIO_PIN_SET);
+		  HAL_GPIO_WritePin(ILED10_GPIO_Port,ILED10_Pin,GPIO_PIN_RESET);
 		  //test_sound();
-		  R_L_test_drive();
+		  //R_L_test_drive();
 		  //test_suction();
+		  isStart=true;
+		  //HAL_Delay(1000);
+		  for(int i=0;i<1200;i++)
+		  {
+			  //printf("now_v=%f,now_x=%f,now_R_duty=%f,now_L_duty=%f,enc=%f,gyro=%f\n\r",ksk_obj.now_v_log[i],ksk_obj.now_x_log[i],pwm_obj.now_R_log[i],pwm_obj.now_L_log[i],pid_obj.log_enc[i],pid_obj.log_gyro[i]);
+			  printf("%f,%f,%f,%f,%f,%f\n\r",ksk_obj.now_v_log[i],ksk_obj.now_x_log[i],pwm_obj.now_R_log[i],pwm_obj.now_L_log[i],pid_obj.log_enc[i],pid_obj.log_gyro[i]);
+		  }
+		  /*for(int i=0;i<1200;i++)
+		  {
+			  printf("now_R_duty=%f,now_L_duty=%f\n\r",pwm_obj.now_R_log[i],pwm_obj.now_L_log[i]);
+		  }*/
+		  /*for(int i=0;i<1200;i++)
+		  {
+		  	  printf("enc=%f,gyro=%f\n\r",pid_obj.log_enc[i],pid_obj.log_gyro[i]);
+		  }*/
 	  }
 	  else
 	  {
@@ -203,7 +242,7 @@ int main(void)
 		  //HAL_GPIO_WritePin(LED5_GPIO_Port,LED5_Pin,GPIO_PIN_RESET);
 		  //HAL_GPIO_WritePin(ILED8_GPIO_Port,ILED8_Pin,GPIO_PIN_RESET);
 		  //HAL_GPIO_WritePin(ILED9_GPIO_Port,ILED9_Pin,GPIO_PIN_RESET);
-		  //HAL_GPIO_WritePin(ILED10_GPIO_Port,ILED10_Pin,GPIO_PIN_RESET);
+		  //HAL_GPIO_WritePin(ILED10_GPIO_Port,ILED10_Pin,GPIO_PIN_SET);
 	  }
 
 
