@@ -19,6 +19,7 @@ namespace controll
 		CommandStatus* my_cs;
 
 		bool isDutyEnd=true;//Duty変換が終わったかどうか
+		bool bu_isBreak=false;
 
 		float now_x;//現在位置
 		float now_v;//現在速度 mm/s
@@ -40,6 +41,8 @@ namespace controll
 		float ke=0.000414;//0.414mV/rpm(0.000414 V/rpm) :逆起電圧定数
 		float L=50;//50mm:トレッド幅
 		float I=0.000543;//0.000543kg*m^2:慣性モーメント*/
+		float turn_A=0.5;//A:角加速度依存の補正係数
+		float turn_B=1.0;//B:角速度依存の補正係数
 
 	public:
 		float now_R_log[1200];
@@ -51,7 +54,7 @@ namespace controll
 		PWM_Out(void);//pwmのコンストラクタ
 		void set_cs(CommandStatus* cs);//CommandStatusオブジェクトをフィールドにセットする
 		void updata(Command cm);//現在のコマンドを更新(CommandExecuterに呼ばれる)
-		void updata_x_v(float x,float v,bool isKasokuEnd);//kasokuから現在のxとvとフラグを取得
+		void updata_x_v(float x,float v,bool isKasokuEnd,bool isBreak);//kasokuから現在のxとvとフラグを取得
 		void updata_PID(float ff_turn,float fb_turn);//PIDから現在のPID値を取得
 		void set_pwm();//duty変換に必要なパラメータをセットする関数
 		void pwm();//duty変換を行う関数

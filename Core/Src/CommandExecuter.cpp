@@ -63,6 +63,16 @@ namespace controll
 			notify_Ctrl(stop_cm);
 			notify_kasoku_PWM(stop_cm);
 		}
+		else if(my_cs->show_status()==Break_End)
+		{
+			if(break_cm.isBreakStop==false)
+			{
+				Command bu_break_cm(Break_Stop);
+				break_cm=bu_break_cm;
+			}
+			notify_Ctrl(break_cm);
+			notify_kasoku_PWM(break_cm);
+		}
 		else if((my_cs->show_status())==Abnormal_End)
 		{
 			if(fail_cm.isFailStop==false)

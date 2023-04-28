@@ -17,6 +17,7 @@ namespace controll
 	class kasoku
 	{
 		bool isKasokuEnd=true;//加速が終わったかどうか
+		bool isBreak=false;//breakをかけるか
 
 		float now_x=0;//現在の位置
 		float dt=0.001;//刻み時間1ms

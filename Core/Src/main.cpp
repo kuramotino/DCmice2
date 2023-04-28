@@ -134,6 +134,7 @@ int main(void)
   //pl_encoder_init();
   int16_t cnt_R=0;
   int16_t cnt_L=0;
+  float t=0;
   Init_Controll();
   bool isStart=false;
   using namespace controll;
@@ -184,7 +185,7 @@ int main(void)
 	  //test_sound();
 	  //cnt_R+=pl_count_encoderR();
 	  //cnt_L+=pl_count_encoderL();
-	  //printf("enc_R=%d enc_L=%d\n\r",cnt_R,cnt_L);
+	  //printf("enc_R=%d enc_L=%d\n\r",input_obj.enc_R_sum,input_obj.enc_L_sum);
 	  //HAL_GPIO_WritePin(ILED8_GPIO_Port,ILED8_Pin,GPIO_PIN_SET);
 	  //HAL_ADCEx_Calibration_Start(&hadc1, ADC_SINGLE_ENDED);
 	  //test_adc();
@@ -198,9 +199,13 @@ int main(void)
 	  {
 		  isStart=false;
 		  HAL_GPIO_WritePin(ILED10_GPIO_Port,ILED10_Pin,GPIO_PIN_SET);
-		  App_Set_Command(Stra);
-		  HAL_Delay(100);
+		  App_Set_Command(Left_f_off);
+		  //HAL_Delay(1000);
 		  //App_Set_Command(Stra);
+		  App_Set_Command(Mid_Stra);
+		  App_Set_Command(Left_b_off);
+		  //HAL_Delay(100);
+		  //App_Set_Command(Left_sla);
 	  }
 	  //HAL_GPIO_WritePin(ILED10_GPIO_Port,ILED10_Pin,GPIO_PIN_SET);
 
@@ -219,10 +224,12 @@ int main(void)
 		  //test_suction();
 		  isStart=true;
 		  //HAL_Delay(1000);
+		  t=0;
 		  for(int i=0;i<1200;i++)
 		  {
 			  //printf("now_v=%f,now_x=%f,now_R_duty=%f,now_L_duty=%f,enc=%f,gyro=%f\n\r",ksk_obj.now_v_log[i],ksk_obj.now_x_log[i],pwm_obj.now_R_log[i],pwm_obj.now_L_log[i],pid_obj.log_enc[i],pid_obj.log_gyro[i]);
-			  printf("%f,%f,%f,%f,%f,%f\n\r",ksk_obj.now_v_log[i],ksk_obj.now_x_log[i],pwm_obj.now_R_log[i],pwm_obj.now_L_log[i],pid_obj.log_enc[i],pid_obj.log_gyro[i]);
+			  printf("%f,%f,%f,%f,%f,%f,%f\n\r",t,ksk_obj.now_v_log[i],ksk_obj.now_x_log[i],pwm_obj.now_R_log[i],pwm_obj.now_L_log[i],pid_obj.log_enc[i],pid_obj.log_gyro[i]);
+			  t+=0.001;
 		  }
 		  /*for(int i=0;i<1200;i++)
 		  {

@@ -19,6 +19,8 @@ namespace controll
 		float enc_v_L;//エンコーダから取得した左タイヤの速度
 		int16_t enc_v_R_sum;//右エンコーダの合計値
 		int16_t enc_v_L_sum;//左エンコーダの合計値
+		int enc_R_sum;//右エンコーダの合計値
+		int enc_L_sum;//左エンコーダの合計値
 		float omega_gyro;//ジャイロから取得した機体の角速度
 	};
 }

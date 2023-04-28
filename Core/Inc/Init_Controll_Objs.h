@@ -16,6 +16,7 @@
 #include "spi_com.h"
 #include "encoder.h"
 #include "PID_Ctrl.h"
+#include "FailSafe.h"
 
 extern controll::CommandExecuter cx_obj;
 extern controll::kasoku ksk_obj;
@@ -26,6 +27,7 @@ extern controll::InputData input_obj;
 extern module::Enc enc_obj;
 extern module::Gyro gyro_obj;
 extern controll::PID_Ctrl pid_obj;
+extern controll::FailSafe fail_obj;
 extern bool init_flag;
 
 void Init_Controll();

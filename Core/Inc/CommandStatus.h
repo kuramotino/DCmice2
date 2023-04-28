@@ -10,7 +10,7 @@
 
 namespace controll
 {
-	enum status {Run,Normal_End,Forced_End,Abnormal_End};
+	enum status {Run,Normal_End,Forced_End,Abnormal_End,Break_End};
 	class CommandStatus
 	{
 		enum status command_status=Normal_End;

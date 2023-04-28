@@ -30,12 +30,20 @@ namespace controll
 		float gy_delta_error;//前回と今回のerrorの差分
 
 		float V_bat=8.4;//8.4V:電源電圧
-		float Ksp=0.015;//1直進のPゲイン
-		float Ksi=0.001;//1直進のIゲイン
-		float Ksd=0.0;//1直進のDゲイン
-		float Ktp=0.0;//2回転のPゲイン
-		float Kti=0.0;//2回転のIゲイン
-		float Ktd=0.0;//2回転のDゲイン
+
+		float Ksp=15;//1直進時の直進成分のPゲイン1.5
+		float Ksi=1;//1直進時の直進成分のIゲイン0.1
+		float Ksd=0;//1直進時の直進成分のDゲイン
+		float K_st_tu_p=1;//1直進時の回転成分のPゲイン
+		float K_st_tu_i=0.1;//1直進時の回転成分のIゲイン
+		float K_st_tu_d=0;//1直進時の回転成分のDゲイン
+
+		float Ktp=17;//2回転時の回転成分のPゲイン17
+		float Kti=0.45;//2回転時の回転成分のIゲイン0.45
+		float Ktd=0.25;//2回転時の回転成分のDゲイン0.25
+		float K_tu_st_p=0;//1回転時の直進成分のPゲイン
+		float K_tu_st_i=0;//1回転時の直進成分のIゲイン
+		float K_tu_st_d=0;//1回転時の直進成分のDゲイン
 
 	public:
 		float log_enc[1200];

@@ -30,7 +30,7 @@ namespace controll
 	public:
 		virtual void updata(Command cm);
 		void add_obj(kasoku* ka,PWM_Out* pwm,InputData* input,CommandStatus* cs);
-		void status_off();
+		void status_off(enum status st);
 	};
 }
 

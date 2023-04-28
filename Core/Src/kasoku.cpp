@@ -22,9 +22,9 @@ namespace controll
 	{
 		isKasokuEnd=false;
 		now_x=0;
-		now_v=0;
 		target_a=now_cm.bu_tar_a;//加速度
 		target_v_start=now_cm.bu_tar_v_start;//初速度
+		now_v=target_v_start;
 		target_v_max=now_cm.bu_tar_v_max;//最大速度
 		target_v_end=now_cm.bu_tar_v_end;//終端速度
 		target_x=now_cm.bu_tar_x;//目標距離
@@ -52,9 +52,17 @@ namespace controll
 			else
 			{
 				isKasokuEnd=true;
+				if(now_v<=0)
+				{
+					isBreak=true;
+				}
+				else
+				{
+					isBreak=false;
+				}
 			}
 
-		if(log_count!=1200 && now_cm.gv!=0)
+		if(log_count!=1200)
 			{
 				now_v_log[log_count]=now_v;
 				now_x_log[log_count]=now_x;
@@ -80,7 +88,7 @@ namespace controll
 
 	void controll::kasoku::transmit_pwm()//pwm_outに計算した速度と位置をと加速が終了したかどうかのフラグを送る関数
 	{
-			my_pwm->updata_x_v(now_x, now_v,isKasokuEnd);
+			my_pwm->updata_x_v(now_x, now_v,isKasokuEnd,isBreak);
 	}
 
 	float controll::kasoku::show_v()//now_vを返す関数(PID_Ctrlに呼ばれる)

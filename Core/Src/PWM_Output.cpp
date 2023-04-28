@@ -36,11 +36,12 @@ namespace controll
 		}
 	}
 
-	void controll::PWM_Out::updata_x_v(float x,float v,bool isKasokuEnd)//kasokuから現在のxとvとフラグを取得(kasokuから呼ばれる)
+	void controll::PWM_Out::updata_x_v(float x,float v,bool isKasokuEnd,bool isBreak)//kasokuから現在のxとvとフラグを取得(kasokuから呼ばれる)
 	{
 		now_x=x;
 		now_v=v;
 		bool bu_isKasokuEnd=isKasokuEnd;
+		bu_isBreak=isBreak;
 		if(bu_isKasokuEnd==true && isDutyEnd==false)
 		{
 			status_off();
@@ -67,7 +68,7 @@ namespace controll
 			if(now_cm.isTurn==true)
 			{
 				duty_FF_stra=1/V_bat*ke*(60*n*now_cm.gv/2/3.14/taiya_dirmeter);
-				duty_FF_turn=1/V_bat*((R*10*10*10)/kt*(I*target_a/L)*taiya_dirmeter/n+ke*(60*n*L*now_v/4/3.14/taiya_dirmeter));
+				duty_FF_turn=1/V_bat*((turn_A*R*10*10*10)/kt*(I*target_a*(3.14/180)/L)*taiya_dirmeter/n+ke*(turn_B*60*n*L*now_v*(3.14/180)/4/3.14/taiya_dirmeter));
 				if(duty_FF_turn>0)
 				{
 					cw=Left;
@@ -91,8 +92,8 @@ namespace controll
 				}
 			}
 
-			duty_R=fabs(duty_FF_stra+duty_FF_turn+duty_FB_stra+duty_FB_turn);
-			duty_L=fabs(duty_FF_stra-duty_FF_turn+duty_FB_stra-duty_FB_turn);
+			duty_R=duty_FF_stra+duty_FF_turn+duty_FB_stra+duty_FB_turn;
+			duty_L=duty_FF_stra-duty_FF_turn+duty_FB_stra-duty_FB_turn;
 			if(duty_R>1)
 			{
 				duty_R=1;
@@ -100,6 +101,15 @@ namespace controll
 			if(duty_L>1)
 			{
 				duty_L=1;
+			}
+
+			if(duty_R<0)
+			{
+				duty_R=0;
+			}
+			if(duty_L<0)
+			{
+				duty_L=0;
 			}
 
 			if(log_count!=1200)
@@ -116,7 +126,7 @@ namespace controll
 		*dutyR=duty_R;
 		*dutyL=duty_L;
 		*bu_cw=cw;
-		if(isDutyEnd==true)
+		if(now_cm.isFailStop==true || now_cm.isBreakStop==true)
 		{
 			*dutyR=0;
 			*dutyL=0;
@@ -126,6 +136,13 @@ namespace controll
 
 	void controll::PWM_Out::status_off()
 	{
-		my_cs->off_command(Normal_End);//1:通常終了
+		if(bu_isBreak==false)
+		{
+			my_cs->off_command(Normal_End);//1:通常終了
+		}
+		else
+		{
+			my_cs->off_command(Break_End);//2:Break終了
+		}
 	}
 }

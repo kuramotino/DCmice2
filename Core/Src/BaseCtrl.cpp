@@ -27,8 +27,8 @@ namespace controll
 		my_cs=cs;
 	}
 
-	void controll::BaseCtrl::status_off()//CommandStatusをoffにする
+	void controll::BaseCtrl::status_off(enum status st)//CommandStatusをoffにする
 	{
-		my_cs->off_command(Forced_End);//-1:強制終了
+		my_cs->off_command(st);//-1:強制終了
 	}
 }

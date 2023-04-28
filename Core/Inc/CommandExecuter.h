@@ -26,6 +26,7 @@ namespace controll
 		PWM_Out* pwm_listenar;
 		Command stop_cm;
 		Command fail_cm;
+		Command break_cm;
 		CommandStatus* my_cs;
 
 	public:

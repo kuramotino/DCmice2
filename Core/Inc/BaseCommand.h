@@ -10,7 +10,7 @@
 
 namespace controll
 {
-	enum command_type{Stra,Left_sla,Right_sla,Left_sen,Right_sen,Stra_Back,Stop,Fail_Stop};
+	enum command_type{Stra,Left_sla,Right_sla,Left_sen,Right_sen,Stra_Back,Left_f_off,Left_b_off,Mid_Stra,Stop,Fail_Stop,Break_Stop};
 	class Command
 	{
 	public:
@@ -22,6 +22,7 @@ namespace controll
 		float gv=500;//重心速度
 		bool isStop=false;//stopさせるかどうか
 		bool isFailStop=false;//FailSafeでstopさせるか
+		bool isBreakStop=false;//Breakをかけるか
 		bool isPID_Stop=false;//PIDをstopさせるか
 		bool isTurn=false;//turnかどうか
 
