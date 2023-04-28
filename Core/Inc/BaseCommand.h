@@ -14,12 +14,13 @@ namespace controll
 	class Command
 	{
 	public:
-		float bu_tar_a=1000;//目標加速度
-		float bu_tar_v_start=0;//目標初速度
-		float bu_tar_v_max=500;//目標最高速度
-		float bu_tar_v_end=0;//目標終端速度
-		float bu_tar_x=500;//目標距離
-		float gv=500;//重心速度
+		float bu_tar_a=1000;//1目標加速度
+		float bu_tar_v_start=0;//2目標初速度
+		float bu_tar_v_max=500;//3目標最高速度
+		float bu_tar_v_end=0;//4目標終端速度
+		float bu_tar_x=500;//5目標距離
+		float gv=500;//6重心速度
+		bool MoveVec=true;//運動の向き(前進、左回転が正の向きでtrue、後進、右回転が負の向きでfalse)
 		bool isStop=false;//stopさせるかどうか
 		bool isFailStop=false;//FailSafeでstopさせるか
 		bool isBreakStop=false;//Breakをかけるか

@@ -9,6 +9,7 @@
 #include "tim.h"
 #include "stm32f4xx_hal.h"
 #include "BaseSencing.h"
+#include "math.h"
 
 namespace module
 {
@@ -59,7 +60,7 @@ namespace module
 		sum_enc_l+=enc_count_l;
 		enc_v_R=(float)enc_count_r*180/71896/0.001;//2*PI*TaiyaDirmeterをかける
 		enc_v_L=(float)enc_count_l*180/70673/0.001;//2*PI*TaiayDirmeterをかける
-		v_encoder=(enc_v_R+enc_v_L)/2;//1重心の速度を求める
+		v_encoder=fabs((enc_v_R+enc_v_L)/2);//1重心の速度を求める
 
 		my_input->v_encoder=v_encoder;
 		my_input->enc_v_L=enc_v_L;

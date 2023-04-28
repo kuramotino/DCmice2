@@ -5,6 +5,7 @@
  *      Author: Ryu
  */
 #include "PID_Ctrl.h"
+#include "math.h"
 
 namespace controll
 {
@@ -38,6 +39,15 @@ namespace controll
 		if(isStop==false)
 		{
 			get_enc_gyro();
+			float ccw=1;
+			if(now_cm.MoveVec==true)//前進、左回転の時
+			{
+				ccw=1;
+			}
+			else//後進、右回転の時
+			{
+				ccw=-1;
+			}
 
 			if(now_cm.isTurn==false)
 			{
@@ -47,7 +57,7 @@ namespace controll
 				enc_sigma_error+=enc_error;
 				fb_stra=1/V_bat/(10*10*10)*(Ksp*enc_error+Ksi*enc_sigma_error+Ksd*enc_delta_error);
 
-				gy_error=now_omega-omega_gyro;
+				gy_error=now_omega-ccw*omega_gyro;
 				gy_delta_error=gy_error-gy_old_error;
 				gy_old_error=gy_error;
 				gy_sigma_error+=gy_error;
@@ -61,7 +71,7 @@ namespace controll
 				enc_sigma_error+=enc_error;
 				fb_stra=1/V_bat/(10*10*10)*(K_tu_st_p*enc_error+K_tu_st_i*enc_sigma_error+K_tu_st_d*enc_delta_error);
 
-				gy_error=now_omega-omega_gyro;
+				gy_error=now_omega-ccw*omega_gyro;
 				gy_delta_error=gy_error-gy_old_error;
 				gy_old_error=gy_error;
 				gy_sigma_error+=gy_error;

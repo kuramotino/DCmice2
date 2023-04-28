@@ -69,7 +69,7 @@ namespace controll
 			{
 				duty_FF_stra=1/V_bat*ke*(60*n*now_cm.gv/2/3.14/taiya_dirmeter);
 				duty_FF_turn=1/V_bat*((turn_A*R*10*10*10)/kt*(I*target_a*(3.14/180)/L)*taiya_dirmeter/n+ke*(turn_B*60*n*L*now_v*(3.14/180)/4/3.14/taiya_dirmeter));
-				if(duty_FF_turn>0)
+				if(now_cm.MoveVec==true)
 				{
 					cw=Left;
 				}
@@ -82,7 +82,7 @@ namespace controll
 			{
 				duty_FF_stra=1/V_bat*(R/kt*(m*target_a/(2*10*10*10))*taiya_dirmeter/n+ke*(60*n*now_v/2/3.14/taiya_dirmeter));
 				duty_FF_turn=0;
-				if(duty_FF_stra>0)
+				if(now_cm.MoveVec==true)
 				{
 					cw=Front;
 				}
@@ -92,8 +92,17 @@ namespace controll
 				}
 			}
 
-			duty_R=duty_FF_stra+duty_FF_turn+duty_FB_stra+duty_FB_turn;
-			duty_L=duty_FF_stra-duty_FF_turn+duty_FB_stra-duty_FB_turn;
+			if(now_cm.isTurn==true)
+			{
+				duty_R=fabs(duty_FF_stra+duty_FF_turn+duty_FB_stra+duty_FB_turn);
+				duty_L=fabs(duty_FF_stra-duty_FF_turn+duty_FB_stra-duty_FB_turn);
+			}
+			else
+			{
+				duty_R=duty_FF_stra+duty_FF_turn+duty_FB_stra+duty_FB_turn;
+				duty_L=duty_FF_stra-duty_FF_turn+duty_FB_stra-duty_FB_turn;
+			}
+
 			if(duty_R>1)
 			{
 				duty_R=1;
@@ -102,7 +111,6 @@ namespace controll
 			{
 				duty_L=1;
 			}
-
 			if(duty_R<0)
 			{
 				duty_R=0;
