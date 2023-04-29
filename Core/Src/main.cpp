@@ -199,12 +199,13 @@ int main(void)
 	  {
 		  isStart=false;
 		  HAL_GPIO_WritePin(ILED10_GPIO_Port,ILED10_Pin,GPIO_PIN_SET);
-		  //App_Set_Command(Left_f_off);
+		  App_Set_Command(Left_f_off);
 		  //HAL_Delay(1000);
-		  App_Set_Command(Stra_Back);
+		  //App_Set_Command(Stra_Back);
 		  //App_Set_Command(Stra);
+		  App_Set_Command(Right_sla);
 		  //App_Set_Command(Mid_Stra);
-		  //App_Set_Command(Left_b_off);
+		  App_Set_Command(Left_b_off);
 		  //HAL_Delay(100);
 		  //App_Set_Command(Right_sla);
 	  }

@@ -20,6 +20,7 @@ namespace controll
 		float bu_tar_v_end=0;//4目標終端速度
 		float bu_tar_x=500;//5目標距離
 		float gv=500;//6重心速度
+		float ga=3000;//7重心加速度
 		bool MoveVec=true;//運動の向き(前進、左回転が正の向きでtrue、後進、右回転が負の向きでfalse)
 		bool isStop=false;//stopさせるかどうか
 		bool isFailStop=false;//FailSafeでstopさせるか

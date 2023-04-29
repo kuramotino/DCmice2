@@ -45,7 +45,8 @@ namespace controll
 				bu_tar_v_max=286;//3目標最高速度
 				bu_tar_v_end=0;//4目標終端速度
 				bu_tar_x=90;//5目標距離
-				gv=0;//6重心速度
+				gv=500;//6重心速度
+				ga=3000;//7重心加速度
 				MoveVec=true;//左回転
 				isStop=false;//stopさせるかどうか
 				isFailStop=false;//FailSafeでstopさせるか
@@ -59,7 +60,8 @@ namespace controll
 				bu_tar_v_max=286;//3目標最高速度
 				bu_tar_v_end=0;//4目標終端速度
 				bu_tar_x=90;//5目標距離
-				gv=0;//6重心速度
+				gv=500;//6重心速度
+				ga=3000;//7重心加速度
 				MoveVec=false;//右回転
 				isStop=false;//stopさせるかどうか
 				isFailStop=false;//FailSafeでstopさせるか

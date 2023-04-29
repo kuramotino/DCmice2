@@ -67,16 +67,16 @@ namespace controll
 		{
 			if(now_cm.isTurn==true)
 			{
-				duty_FF_stra=1/V_bat*ke*(60*n*now_cm.gv/2/3.14/taiya_dirmeter);
+				duty_FF_stra=1/V_bat*(R/kt*(m*now_cm.ga/(2*10*10*10))*taiya_dirmeter/n+ke*(60*n*now_cm.gv/2/3.14/taiya_dirmeter));
 				duty_FF_turn=1/V_bat*((turn_A*R*10*10*10)/kt*(I*target_a*(3.14/180)/L)*taiya_dirmeter/n+ke*(turn_B*60*n*L*now_v*(3.14/180)/4/3.14/taiya_dirmeter));
-				if(now_cm.MoveVec==true)
+				/*if(now_cm.MoveVec==true)
 				{
 					cw=Left;
 				}
 				else
 				{
 					cw=Right;
-				}
+				}*/
 			}
 			else
 			{
@@ -84,18 +84,55 @@ namespace controll
 				duty_FF_turn=0;
 				if(now_cm.MoveVec==true)
 				{
-					cw=Front;
+					cw_R=Front;
+					cw_L=Front;
 				}
 				else
 				{
-					cw=Back;
+					cw_R=Back;
+					cw_L=Back;
 				}
 			}
 
 			if(now_cm.isTurn==true)
 			{
-				duty_R=fabs(duty_FF_stra+duty_FF_turn+duty_FB_stra+duty_FB_turn);
-				duty_L=fabs(duty_FF_stra-duty_FF_turn+duty_FB_stra-duty_FB_turn);
+				float cwvec;
+				if(now_cm.MoveVec==true)//左回転
+				{
+					cwvec=1;
+				}
+				else//右回転
+				{
+					cwvec=-1;
+				}
+				duty_R=duty_FF_stra+cwvec*duty_FF_turn+duty_FB_stra+cwvec*duty_FB_turn;
+				duty_L=duty_FF_stra-1*cwvec*duty_FF_turn+duty_FB_stra-1*cwvec*duty_FB_turn;
+
+				if((duty_FB_stra+duty_FF_stra)<0)
+				{
+					duty_FB_stra=-duty_FF_stra;
+				}
+
+				if(duty_R<0)
+				{
+					cw_R=Back;
+				}
+				else
+				{
+					cw_R=Front;
+				}
+
+				if(duty_L<0)
+				{
+					cw_L=Back;
+				}
+				else
+				{
+					cw_L=Front;
+				}
+
+				duty_R=fabs(duty_R);
+				duty_L=fabs(duty_L);
 			}
 			else
 			{
@@ -129,16 +166,18 @@ namespace controll
 		}
 	}
 
-	void controll::PWM_Out::out_duty(float* dutyR,float* dutyL,enum turn* bu_cw)
+	void controll::PWM_Out::out_duty(float* dutyR,float* dutyL,enum turn* bu_cw_R,enum turn* bu_cw_L)
 	{
 		*dutyR=duty_R;
 		*dutyL=duty_L;
-		*bu_cw=cw;
+		*bu_cw_R=cw_R;
+		*bu_cw_L=cw_L;
 		if(now_cm.isFailStop==true || now_cm.isBreakStop==true)
 		{
 			*dutyR=0;
 			*dutyL=0;
-			*bu_cw=cw;
+			*bu_cw_R=cw_R;
+			*bu_cw_L=cw_L;
 		}
 	}
 

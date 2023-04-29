@@ -55,16 +55,17 @@ void Sync_Mo_R()//右モータの割り込み処理
 {
 	float duty_r;
 	float duty_l;
-	enum turn cw;
-	pwm_obj.out_duty(&duty_r, &duty_l,&cw);
+	enum turn cw_R;
+	enum turn cw_L;
+	pwm_obj.out_duty(&duty_r, &duty_l,&cw_R,&cw_L);
 
-	if(cw==Front || cw==Left)
+	if(cw_R==Front || cw_R==Left)
 	{
 		__HAL_TIM_SET_COMPARE(&htim3,TIM_CHANNEL_3,(uint16_t)(10000*duty_r));
 		__HAL_TIM_SET_COMPARE(&htim3,TIM_CHANNEL_4,0);
 		__HAL_TIM_SET_COUNTER(&htim3, 0);
 	}
-	else if(cw==Back || cw==Right)
+	else if(cw_R==Back || cw_R==Right)
 	{
 		__HAL_TIM_SET_COMPARE(&htim3,TIM_CHANNEL_3,0);
 		__HAL_TIM_SET_COMPARE(&htim3,TIM_CHANNEL_4,(uint16_t)(10000*duty_r));
@@ -76,16 +77,17 @@ void Sync_Mo_L()//左モータの割り込み処理
 {
 	float duty_r;
 	float duty_l;
-	enum turn cw;
-	pwm_obj.out_duty(&duty_r, &duty_l,&cw);
+	enum turn cw_R;
+	enum turn cw_L;
+	pwm_obj.out_duty(&duty_r, &duty_l,&cw_R,&cw_L);
 
-	if(cw==Front || cw==Right)
+	if(cw_L==Front || cw_L==Right)
 	{
 		__HAL_TIM_SET_COMPARE(&htim12,TIM_CHANNEL_2,(uint16_t)(10000*duty_l));
 		__HAL_TIM_SET_COMPARE(&htim12,TIM_CHANNEL_1,0);
 		__HAL_TIM_SET_COUNTER(&htim12, 0);
 	}
-	else if(cw==Back || cw==Left)
+	else if(cw_L==Back || cw_L==Left)
 	{
 		__HAL_TIM_SET_COMPARE(&htim12,TIM_CHANNEL_2,0);
 		__HAL_TIM_SET_COMPARE(&htim12,TIM_CHANNEL_1,(uint16_t)(10000*duty_l));

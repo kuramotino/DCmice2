@@ -31,7 +31,8 @@ namespace controll
 		float duty_FB_stra;
 		float duty_FB_turn;
 
-		enum turn cw;//turnの向き
+		enum turn cw_R;//turnの向き
+		enum turn cw_L;
 		float V_bat=8.4;//8.4V:電源電圧
 		float R=4.3;//4.3Ω:モータの端子間抵抗
 		float kt=3.96;//3.96mNm/A(0.00396 Nm):トルク定数
@@ -58,7 +59,7 @@ namespace controll
 		void updata_PID(float ff_turn,float fb_turn);//PIDから現在のPID値を取得
 		void set_pwm();//duty変換に必要なパラメータをセットする関数
 		void pwm();//duty変換を行う関数
-		void out_duty(float* dutyR,float* dutyL,enum turn* bu_cw);//Dutyを返す関数
+		void out_duty(float* dutyR,float* dutyL,enum turn* bu_cw_R,enum turn* bu_cw_L);//Dutyを返す関数
 		void status_off();//CommandStatusをオフにする関数
 	};
 }

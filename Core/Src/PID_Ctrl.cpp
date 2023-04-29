@@ -93,13 +93,13 @@ namespace controll
 	{
 		now_cm=cm;
 		isStop=(now_cm.isPID_Stop || now_cm.isStop);
-		if(now_cm.isFailStop || now_cm.isBreakStop)
-		{
+		//if(now_cm.isFailStop || now_cm.isBreakStop)
+		//{
 			enc_old_error=0;
 			enc_sigma_error=0;
 			gy_old_error=0;
 			gy_sigma_error=0;
-		}
+		//}
 	}
 }
 
