@@ -56,6 +56,11 @@ namespace controll
 		duty_FB_turn=fb_turn;
 	}
 
+	void controll::PWM_Out::updata_Wall_PID(float wall_pid)//Wall_Ctrlから現在の壁制御量を取得(Wall_Ctrlから呼ばれる)
+	{
+		duty_Wall_PID=wall_pid;
+	}
+
 	void controll::PWM_Out::set_pwm()//duty変換を開始する関数
 	{
 		target_a=now_cm.bu_tar_a;
@@ -105,13 +110,20 @@ namespace controll
 				{
 					cwvec=-1;
 				}
+
+				/*if((duty_FB_stra+duty_FF_stra)<0)
+				{
+					duty_FB_stra=-duty_FF_stra;
+				}*/
+
+
 				duty_R=duty_FF_stra+cwvec*duty_FF_turn+duty_FB_stra+cwvec*duty_FB_turn;
 				duty_L=duty_FF_stra-1*cwvec*duty_FF_turn+duty_FB_stra-1*cwvec*duty_FB_turn;
 
-				if((duty_FB_stra+duty_FF_stra)<0)
+				/*if((duty_FB_stra+duty_FF_stra)<0)
 				{
 					duty_FB_stra=-duty_FF_stra;
-				}
+				}*/
 
 				if(duty_R<0)
 				{
@@ -136,8 +148,8 @@ namespace controll
 			}
 			else
 			{
-				duty_R=duty_FF_stra+duty_FF_turn+duty_FB_stra+duty_FB_turn;
-				duty_L=duty_FF_stra-duty_FF_turn+duty_FB_stra-duty_FB_turn;
+				duty_R=duty_FF_stra+duty_FF_turn+duty_FB_stra+duty_FB_turn+duty_Wall_PID;
+				duty_L=duty_FF_stra-duty_FF_turn+duty_FB_stra-duty_FB_turn-duty_Wall_PID;
 			}
 
 			if(duty_R>1)

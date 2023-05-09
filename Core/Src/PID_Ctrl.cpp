@@ -22,6 +22,11 @@ namespace controll
 		omega_gyro=my_input->omega_gyro;
 		//omega_gyro=omega_gyro*(3.14/180);//degからradに変換
 		v_encoder=my_input->v_encoder;
+		if(now_cm.isSenkai==true)
+		{
+			v_encoder=(my_input->enc_v_R+my_input->enc_v_L)/2;
+		}
+
 		if(now_cm.isTurn==true)
 		{
 			now_v=now_cm.gv;
@@ -65,11 +70,33 @@ namespace controll
 			}
 			else
 			{
-				enc_error=now_v-v_encoder;
-				enc_delta_error=enc_error-enc_old_error;
-				enc_old_error=enc_error;
-				enc_sigma_error+=enc_error;
-				fb_stra=1/V_bat/(10*10*10)*(K_tu_st_p*enc_error+K_tu_st_i*enc_sigma_error+K_tu_st_d*enc_delta_error);
+				if(now_cm.isSenkai==true)
+				{
+					if(my_input->enc_v_R>my_input->enc_v_L)//右回転
+					{
+						enc_error=-1*(my_input->enc_v_R+my_input->enc_v_L);
+						enc_delta_error=enc_error-enc_old_error;
+						enc_old_error=enc_error;
+						enc_sigma_error+=enc_error;
+						fb_stra=1/V_bat/(10*10*10)*(K_senkai_p*enc_error+K_senkai_i*enc_sigma_error+K_senkai_d*enc_delta_error);
+					}
+					else//左回転
+					{
+						enc_error=-1*(my_input->enc_v_R+my_input->enc_v_L);
+						enc_delta_error=enc_error-enc_old_error;
+						enc_old_error=enc_error;
+						enc_sigma_error+=enc_error;
+						fb_stra=1/V_bat/(10*10*10)*(K_senkai_p*enc_error+K_senkai_i*enc_sigma_error+K_senkai_d*enc_delta_error);
+					}
+				}
+				else
+				{
+					enc_error=now_v-v_encoder;
+					enc_delta_error=enc_error-enc_old_error;
+					enc_old_error=enc_error;
+					enc_sigma_error+=enc_error;
+					fb_stra=1/V_bat/(10*10*10)*(K_tu_st_p*enc_error+K_tu_st_i*enc_sigma_error+K_tu_st_d*enc_delta_error);
+				}
 
 				gy_error=now_omega-ccw*omega_gyro;
 				gy_delta_error=gy_error-gy_old_error;

@@ -26,7 +26,9 @@ namespace controll
 		bool isFailStop=false;//FailSafeでstopさせるか
 		bool isBreakStop=false;//Breakをかけるか
 		bool isPID_Stop=false;//PIDをstopさせるか
+		bool isWall_PID_Stop=false;//壁制御のPIDをstopさせるか
 		bool isTurn=false;//turnかどうか
+		bool isSenkai=false;//旋回かどうか
 
 	public:
 		Command();

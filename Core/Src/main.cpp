@@ -189,7 +189,7 @@ int main(void)
 	  //HAL_GPIO_WritePin(ILED8_GPIO_Port,ILED8_Pin,GPIO_PIN_SET);
 	  //HAL_ADCEx_Calibration_Start(&hadc1, ADC_SINGLE_ENDED);
 	  //test_adc();
-	  //printf("sensorL_1=%d,sensorL_2=%d,sensorF=%d,sensorR_1=%d,sensorR_2=%d\n\r",g_sensor_now[0],g_sensor_now[1],g_sensor_now[2],g_sensor_now[3],g_sensor_now[4]);
+	  //printf("sensorL_1=%d,sensorL_2=%d,sensorF=%d,sensorR_1=%d,sensorR_2=%d\n\r",input_obj.g_sensor_now[0],input_obj.g_sensor_now[1],input_obj.g_sensor_now[2],input_obj.g_sensor_now[3],input_obj.g_sensor_now[4]);
 	 //HAL_GPIO_WritePin(LED1_GPIO_Port,LED1_Pin,GPIO_PIN_SET);
 	  		  //HAL_GPIO_WritePin(LED2_GPIO_Port,LED2_Pin,GPIO_PIN_SET);
 	  		  //HAL_GPIO_WritePin(LED3_GPIO_Port,LED3_Pin,GPIO_PIN_SET);
@@ -203,7 +203,9 @@ int main(void)
 		  //HAL_Delay(1000);
 		  //App_Set_Command(Stra_Back);
 		  //App_Set_Command(Stra);
-		  App_Set_Command(Right_sla);
+		  App_Set_Command(Left_sla);
+		  //App_Set_Command(Left_sen);
+		  //App_Set_Command(Right_sla);
 		  //App_Set_Command(Mid_Stra);
 		  App_Set_Command(Left_b_off);
 		  //HAL_Delay(100);

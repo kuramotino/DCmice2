@@ -251,7 +251,6 @@ void TIM6_DAC_IRQHandler(void)
   HAL_TIM_IRQHandler(&htim6);
   /* USER CODE BEGIN TIM6_DAC_IRQn 1 */
   Sync_Module();
-  pl_interupt_getSensor();
   //HAL_GPIO_WritePin(ILED5_GPIO_Port,ILED5_Pin,GPIO_PIN_SET);
   //test_adc();
   /* USER CODE END TIM6_DAC_IRQn 1 */

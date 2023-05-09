@@ -22,6 +22,7 @@
 
 /* USER CODE BEGIN 0 */
 #include "PL_sensor.h"
+#include "Init_Controll_Objs.h"
 /* USER CODE END 0 */
 
 ADC_HandleTypeDef hadc1;
@@ -310,7 +311,7 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef* adcHandle)
 /* USER CODE BEGIN 1 */
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
 {
-	pl_callback_getSensor();
+	pl_obj.pl_callback_getSensor();
 }
 /* USER CODE END 1 */
 

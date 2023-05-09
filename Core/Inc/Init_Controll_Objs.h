@@ -16,6 +16,8 @@
 #include "spi_com.h"
 #include "encoder.h"
 #include "PID_Ctrl.h"
+#include "Wall_Controll.h"
+#include "PL_sensor.h"
 #include "FailSafe.h"
 
 extern controll::CommandExecuter cx_obj;
@@ -26,8 +28,10 @@ extern controll::Command com_obj;
 extern controll::InputData input_obj;
 extern module::Enc enc_obj;
 extern module::Gyro gyro_obj;
+extern module::PL_sensor pl_obj;
 extern controll::PID_Ctrl pid_obj;
 extern controll::FailSafe fail_obj;
+extern controll::Wall_Ctrl wall_obj;
 extern bool init_flag;
 
 void Init_Controll();

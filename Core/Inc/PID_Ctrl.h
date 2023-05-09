@@ -34,16 +34,20 @@ namespace controll
 		float Ksp=15;//1直進時の直進成分のPゲイン1.5
 		float Ksi=1;//1直進時の直進成分のIゲイン0.1
 		float Ksd=0;//1直進時の直進成分のDゲイン
-		float K_st_tu_p=1;//1直進時の回転成分のPゲイン
-		float K_st_tu_i=0.1;//1直進時の回転成分のIゲイン
+		float K_st_tu_p=1;//1直進時の回転成分のPゲイン1
+		float K_st_tu_i=0;//1直進時の回転成分のIゲイン0.1
 		float K_st_tu_d=0;//1直進時の回転成分のDゲイン
 
 		float Ktp=17;//2回転時の回転成分のPゲイン17
 		float Kti=0.45;//2回転時の回転成分のIゲイン0.45
 		float Ktd=0.25;//2回転時の回転成分のDゲイン0.25
-		float K_tu_st_p=5;//1回転時の直進成分のPゲイン
-		float K_tu_st_i=0.0;//1回転時の直進成分のIゲイン
+		float K_tu_st_p=5;//1回転時の直進成分のPゲイン5
+		float K_tu_st_i=0;//1回転時の直進成分のIゲイン
 		float K_tu_st_d=0;//1回転時の直進成分のDゲイン
+
+		float K_senkai_p=5;//1超信地旋回時の直進成分のPゲイン5
+		float K_senkai_i=0.1;//1超信地旋回時の直進成分のIゲイン
+		float K_senkai_d=0;//1超信地旋回時の直進成分のDゲイン
 
 	public:
 		float log_enc[1200];

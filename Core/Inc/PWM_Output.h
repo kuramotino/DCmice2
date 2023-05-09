@@ -30,6 +30,7 @@ namespace controll
 		float duty_FF_turn;
 		float duty_FB_stra;
 		float duty_FB_turn;
+		float duty_Wall_PID;
 
 		enum turn cw_R;//turnの向き
 		enum turn cw_L;
@@ -57,6 +58,7 @@ namespace controll
 		void updata(Command cm);//現在のコマンドを更新(CommandExecuterに呼ばれる)
 		void updata_x_v(float x,float v,bool isKasokuEnd,bool isBreak);//kasokuから現在のxとvとフラグを取得
 		void updata_PID(float ff_turn,float fb_turn);//PIDから現在のPID値を取得
+		void updata_Wall_PID(float wall_pid);//Wall_Ctrlから現在の壁制御量を取得
 		void set_pwm();//duty変換に必要なパラメータをセットする関数
 		void pwm();//duty変換を行う関数
 		void out_duty(float* dutyR,float* dutyL,enum turn* bu_cw_R,enum turn* bu_cw_L);//Dutyを返す関数
